@@ -8,13 +8,12 @@ export const updateTopStories = (topStories) => {
   }
 }
 
-// export const listTodo = (todos) =>
-// {
-//   return { 
-//     type: SET_TODO_DATA, 
-//     payload: todos 
-//   }
-// }
+export const updateItemDetails = (itemDetails) => {
+  return {
+    type: "UPDATE_ITEMDETAILS",
+    itemDetails: itemDetails
+  }
+}
 
 
 

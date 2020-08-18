@@ -1,33 +1,57 @@
 import React from 'react';
-import myReducer from '..//../redux/reducer';
+import {connect} from 'react-redux';
+import {updateItemDetails} from '..//../redux/action';
 
 class SingleItem extends React.Component {
+
+  constructor(props) {
+    super(props)
+    this.state ={
+      Item: {}
+    }
+  }
   componentWillMount(){
-    
-  //   const filteredData = this.props.itemsList.filter(item => item.id !== itemDetails.id)
-  //   if(filteredData.length === 1) {
-
-  //   } 
-  //   else {
-
-    const itemID = this.props.itemID
-    const itemDetailsURL = "https://hacker-news.firebaseio.com/v0/item/${itemID}.json?print=pretty";
-    fetch(itemDetailsURL)
-    .then(res => res.json())
-      .then(itemDetails => {
-        this.props.updateitemDetails(itemDetails)
-    })
-    // }
+    const itemListID = this.props.id;
+    const filteredData = this.props.itemDetails.filter(item => item.id !== itemListID)
+    console.log('filteredData', filteredData)
+    if (filteredData.length ===1) {
+      this.setState({
+        Item: filteredData
+      })
+    }
+    else {
+      const itemDetailsURL = "https://hacker-news.firebaseio.com/v0/item/${itemID}.json?print=pretty";
+      fetch(itemDetailsURL)
+      .then(res => res.json())
+        .then(itemDetails => {
+          this.props.updateItemDetails(itemDetails)
+          this.setState({
+            Item: itemDetails
+          })
+        })
+    }
   }
   render(){
-    const itemsList = this.props.itemsList
+    const itemsList = this.props.itemDetails
+    console.log(itemsList)
     return(
       <div>
-        {/* ID: {itemID}
-        Name: {name} */}
+        {this.state.Item.title}
+        {this.state.Item.by}
       </div>
-    )
+    );
+  }
+}
+const mapStateProps = state => {
+  return{
+    itemDetails: state.itemList
   }
 }
 
-export default SingleItem;
+const mapDispatchToProps = dispatch => {
+  return{
+    updateItemDetails: (itemDetails) => dispatch(updateItemDetails(itemDetails))
+  }
+}
+
+export default connect(mapStateProps, mapDispatchToProps)(SingleItem);

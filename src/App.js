@@ -5,7 +5,6 @@ import { Provider } from 'react-redux';
 
 //importing files
 import ReduxTopStories from './pages/topStories/topStories';
-
 import Store from './redux/store';
 import './App.css';
 
@@ -19,7 +18,9 @@ class App extends React.Component {
     return (
       <Provider store={Store}>
         <BrowserRouter>
-          <ReduxTopStories></ReduxTopStories>
+          <Switch>
+            <Route path="/topstories" component={ReduxTopStories}/>
+          </Switch>
         </BrowserRouter>
       </Provider>
     );

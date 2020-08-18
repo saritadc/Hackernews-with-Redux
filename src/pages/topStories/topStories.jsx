@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link  } from 'react-router-dom';
 
 import SingleItem from '../../components/singleItems/singleItems';
 import { updateTopStories } from '../../redux/action'
@@ -12,16 +11,17 @@ class TopStories extends React.Component {
     fetch(topStoriesURL)
     .then(res => res.json())
     .then(topStories => {
+      console.log('topStories', { topStories});
+      topStories = topStories.slice(0,8);
       this.props.updateTopStories(topStories)
-      console.log(topStories)
     })
   }
 
   render() {
-    const topStories = this.props.topStories
+    const topStories = this.props.topStories;
     return (
       <div>
-         {topStories.map(storyID => <SingleItem id={topStories[storyID] }/>)}
+        {topStories.map((storyID) => (<SingleItem id={storyID}/>)) }
       </div>
     );
   }

@@ -13,7 +13,7 @@ const myReducer =(state = initialState, action) => {
         ...state, topStories: action
         .topStories
       }
-    case "UPDATE_LIST_DETAILS":
+    case "UPDATE_ITEMDETAILS":
       return{
         ...state,
         itemDetails: [...state.itemDetails, action.itemDetails]
